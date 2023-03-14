@@ -1,4 +1,4 @@
-import games.task_5.game as game
+import game
 
 kitchen = game.Room("Kitchen")
 kitchen.set_description("A dank and dirty room buzzing with flies.")
@@ -7,7 +7,8 @@ dining_hall = game.Room("Dining Hall")
 dining_hall.set_description("A large room with ornate golden decorations on each wall.")
 
 ballroom = game.Room("Ballroom")
-ballroom.set_description("A vast room with a shiny wooden floor. Huge candlesticks guard the entrance.")
+ballroom.set_description("A vast room with a shiny wooden floor. \
+                         Huge candlesticks guard the entrance.")
 
 kitchen.link_room(dining_hall, "south")
 dining_hall.link_room(kitchen, "north")
@@ -37,7 +38,7 @@ backpack = []
 
 dead = False
 
-while dead == False:
+while dead is False:
 
     print("\n")
     current_room.get_details()
@@ -54,7 +55,9 @@ while dead == False:
 
     if command in ["north", "south", "east", "west"]:
         # Move in the given direction
-        current_room = current_room.move(command)
+        if current_room.move(command) is not None:
+            current_room = current_room.move(command)
+
     elif command == "talk":
         # Talk to the inhabitant - check whether there is one!
         if inhabitant is not None:
@@ -68,7 +71,7 @@ while dead == False:
             # Do I have this item?
             if fight_with in backpack:
 
-                if inhabitant.fight(fight_with) == True:
+                if inhabitant.fight(fight_with) is True:
                     # What happens if you win?
                     print("Hooray, you won the fight!")
                     current_room.character = None
